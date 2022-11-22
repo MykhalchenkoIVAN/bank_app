@@ -69,9 +69,6 @@ const displayTransactions = function (transactions) {
     containerTransactions.innerHTML = '';
     transactions.forEach(function (transaction, index) {
         const transType = transaction > 0 ? 'deposit' : 'withdrawal';
-
-
-
         const transactionRow = `
     <div class="transactions_row">
     <div class="transactions_type transactions_type_${transType}">
@@ -81,9 +78,27 @@ const displayTransactions = function (transactions) {
   </div>
     `
         containerTransactions.insertAdjacentHTML('afterbegin', transactionRow)
-
     });
 }
 
 
 displayTransactions(account2.transactions)
+
+const createNicknames = function (accounts) {
+    accounts.forEach(function (account) {
+        account.nicname = account.userName
+            .toLowerCase()
+            .split(' ')
+            .map(word => word[0])
+            .join('');
+
+    })
+}
+createNicknames(accounts)
+
+const displayBalance = function (transaction) {
+    const balance = transaction.reduce((acc, trans) => acc + trans, 0);
+    labelBalance.textContent = `${balance}$`
+}
+
+displayBalance(account2.transactions)
