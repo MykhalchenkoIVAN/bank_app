@@ -81,9 +81,6 @@ const displayTransactions = function (transactions) {
     });
 }
 
-
-displayTransactions(account2.transactions)
-
 const createNicknames = function (accounts) {
     accounts.forEach(function (account) {
         account.nicname = account.userName
@@ -94,11 +91,76 @@ const createNicknames = function (accounts) {
 
     })
 }
-createNicknames(accounts)
+createNicknames(accounts); 0
 
-const displayBalance = function (transaction) {
-    const balance = transaction.reduce((acc, trans) => acc + trans, 0);
-    labelBalance.textContent = `${balance}$`
+const displayBalance = function (account) {
+    const balance = account.transactions.reduce((acc, trans) => acc + trans, 0);
+    account.balance = balance;
+    labelBalance.textContent = `${balance}$`;
 }
 
-displayBalance(account2.transactions)
+const displayTotal = function (account) {
+    const depositesTotal = account.transactions.filter(transaction => transaction > 0)
+        .reduce((acc, transaction) => acc + transaction, 0);
+    labelSumIn.textContent = `${depositesTotal}$`;
+
+    const withdrawalsTotal = account.transactions
+        .filter(transaction => transaction < 0)
+        .reduce((acc, transaction) => acc + transaction, 0);
+    labelSumOut.textContent = `${withdrawalsTotal}$`;
+
+    const interestTotal = account.transactions
+        .filter(transaction => transaction > 0)
+        .map(deposite => (deposite * account.interest) / 100)
+        .filter((interest, index, arr) => {
+            return interest >= 5
+        })
+        .reduce((acc, interest) => acc + interest, 0)
+    labelSumInterest.textContent = `${interestTotal}$`
+};
+
+const updateUi = function () {
+
+    // Display transactions
+    displayTransactions(currentAccount.transactions);
+    // Display balance
+    displayBalance(currentAccount);
+    // Display total
+    displayTotal(currentAccount);
+}
+
+let currentAccount
+
+btnLogin.addEventListener('click', function (e) {
+    e.preventDefault();
+    currentAccount = accounts.find(account => account.nicname === inputLoginUsername.value);
+
+    if (currentAccount?.pin === Number(inputLoginPin.value)) {
+        // Display UI and welcome message
+        containerApp.style.opacity = 100;
+        labelWelcome.textContent = `Раді що ви знову з нами, ${currentAccount.userName.split(' ')[0]}!`;
+
+        // Clear inputs
+        inputLoginUsername.value = '';
+        inputLoginPin.value = '';
+        inputLoginPin.blur();
+
+        updateUi(currentAccount);
+    }
+});
+
+btnTransfer.addEventListener('click', function (e) {
+    e.preventDefault();
+    const transferAmount = Number(inputTransferAmount.value);
+    const recipientNickname = inputTransferTo.value;
+    const recipientAccount = accounts.find(account => account.nicname === recipientNickname);
+
+    inputTransferTo.value = '';
+    inputTransferAmount.value = '';
+
+    if (transferAmount > 0 && currentAccount.balance >= transferAmount && currentAccount.nicname !== recipientAccount?.nicname) {
+        currentAccount.transactions.push(-transferAmount);
+        recipientAccount.transactions.push(transferAmount);
+        updateUi(currentAccount);
+    }
+})
