@@ -11,7 +11,7 @@ const account1 = {
 
 const account2 = {
     userName: 'Amani Salt',
-    transactions: [2000, 6400, -1350, -70, -210, -2000, 5500, -30],
+    transactions: [2000, 6400, -1350, -70, -210, 400, 54, -2000, 5500, -30, 100, 209, 39, 50],
     interest: 1.3,
     pin: 2222,
 };
@@ -47,15 +47,23 @@ const labelSumIn = document.querySelector('.total_value_in');
 const labelSumOut = document.querySelector('.total_value_out');
 const labelSumInterest = document.querySelector('.total_value_interest');
 const labelTimer = document.querySelector('.timer');
+const labelFirstLastName = document.querySelector('.card_first_last_name')
 
+const containerNav = document.querySelector('.nav');
 const containerApp = document.querySelector('.app');
 const containerTransactions = document.querySelector('.transactions');
+const containerSendOperation = document.querySelector('.operation_transfer');
+// const containerSendOperation = document.querySelector('.')
 
 const btnLogin = document.querySelector('.login_btn');
 const btnTransfer = document.querySelector('.form_btn_transfer');
 const btnLoan = document.querySelector('.form_btn_loan');
 const btnClose = document.querySelector('.form_btn_close');
 const btnSort = document.querySelector('.btn_sort');
+const btnSend = document.querySelector('.navigation_btn_send');
+const btnReceive = document.querySelector('.navigation_btn_receive');
+const btnTopUp = document.querySelector('.navigation_btn_topup');
+const btnPayment = document.querySelector('.navigation_btn_payment');
 
 const inputLoginUsername = document.querySelector('.login_input_user');
 const inputLoginPin = document.querySelector('.login_input_pin');
@@ -64,6 +72,8 @@ const inputTransferAmount = document.querySelector('.form_input_amount');
 const inputLoanAmount = document.querySelector('.form_input_loan_amount');
 const inputCloseUsername = document.querySelector('.form_input_user');
 const inputClosePin = document.querySelector('.form_input_pin');
+
+const transactionRowWithdrawal = document.querySelector('.transactions_row');
 
 const displayTransactions = function (transactions) {
     containerTransactions.innerHTML = '';
@@ -105,8 +115,7 @@ const displayTotal = function (account) {
     labelSumIn.textContent = `${depositesTotal}$`;
 
     const withdrawalsTotal = account.transactions
-        .filter(transaction => transaction < 0)
-        .reduce((acc, transaction) => acc + transaction, 0);
+        .filter(transaction => transaction < 0).reduce((acc, transaction) => acc + transaction, 0);
     labelSumOut.textContent = `${withdrawalsTotal}$`;
 
     const interestTotal = account.transactions
@@ -135,15 +144,18 @@ btnLogin.addEventListener('click', function (e) {
     e.preventDefault();
     currentAccount = accounts.find(account => account.nicname === inputLoginUsername.value);
 
-    if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    if (currentAccount?.pin === Number(inputLoginPin.value) && inputLoginUsername.value !== '' && inputLoginPin.value !== '') {
         // Display UI and welcome message
         containerApp.style.opacity = 100;
         labelWelcome.textContent = `Раді що ви знову з нами, ${currentAccount.userName.split(' ')[0]}!`;
-
+        labelFirstLastName.textContent = `${currentAccount.userName}`;
+        console.log(currentAccount.userName);
         // Clear inputs
         inputLoginUsername.value = '';
         inputLoginPin.value = '';
         inputLoginPin.blur();
+
+        containerNav.classList.add('display_none');
 
         updateUi(currentAccount);
     }
@@ -163,4 +175,30 @@ btnTransfer.addEventListener('click', function (e) {
         recipientAccount.transactions.push(transferAmount);
         updateUi(currentAccount);
     }
+});
+
+
+const addClassTransactionContainer = function () {
+    if (containerTransactions.className == "transactions") {
+        console.log(containerTransactions.className);
+        containerTransactions.classList.add('display_none');
+        console.log("clic1");
+    } else if (containerTransactions.className == "transactions display_none") {
+        containerTransactions.classList.remove('display_none');
+        console.log("click 2");
+    }
+
+    console.log(containerTransactions.className);
+}
+
+btnSend.addEventListener('click', function () {
+    // containerTransactions.classList.add('display_none');
+    addClassTransactionContainer()
+    // containerSendOperation.classList.toggle('display_none');
+    // containerSendOperation.classList.toggle('display_flex_column')
+})
+
+btnReceive.addEventListener('click', function () {
+    addClassTransactionContainer()
+    // containerSendOperation.classList.add('display_none');
 })

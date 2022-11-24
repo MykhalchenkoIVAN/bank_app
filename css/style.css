@@ -1,7 +1,24 @@
+:root {
+  --bg_color: #121433;
+  --bg_second_color: #23265a;
+  --btn_color: #2567f9;
+  --white: #ffffff;
+  --placeholder_color: #ffffff65;
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
+}
+
+.display_none {
+  display: none;
+}
+.display_flex_column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 html {
@@ -11,22 +28,36 @@ html {
 
 body {
   font-family: "Roboto", sans-serif;
-  color: #444;
-  background-color: #f3f3f3;
+  color: var(--white);
   height: 100vh;
   padding: 2rem;
+  margin: 0 auto;
+  max-width: 420px;
+}
+.body_wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg_color);
+  position: relative;
 }
 
-nav {
-  display: flex;
-  justify-content: space-between;
+.nav {
   align-items: center;
   padding: 0 2rem;
+  position: absolute;
+  z-index: 1;
 }
 
 .welcome {
   font-size: 2rem;
   font-weight: 500;
+  color: var(--white);
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
 }
 
 .logo {
@@ -34,37 +65,44 @@ nav {
 }
 
 .login {
+  height: 200px;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .login_input {
   border: none;
+  background-color: var(--bg_second_color);
   padding: 0.5rem 2rem;
   font-size: 2rem;
   font-family: inherit;
   text-align: center;
-  width: 12rem;
+  width: 327px;
   border-radius: 10rem;
   margin-right: 1rem;
   color: inherit;
-  border: 1px solid #fff;
+
   transition: all 0.3s;
 }
 
 .login_input:focus {
   outline: none;
-  border: 1px solid #ccc;
+  border: 1px solid #858be9;
 }
 
 .login_input::placeholder {
-  color: rgb(105, 105, 105);
+  color: var(--placeholder_color);
 }
 
 .login_btn {
   border: none;
-  background: none;
+  background: var(--btn_color);
+  width: 327px;
+  height: 48px;
+  border-radius: 20px;
   font-size: 2.2rem;
-  color: inherit;
+  color: var(--white);
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -79,24 +117,81 @@ nav {
 
 /* Main */
 .app {
+  width: 100%;
+  height: 100%;
   position: relative;
-  max-width: 100rem;
-  margin: 4rem auto;
-  display: grid;
-  grid-template-columns: 4fr 3fr;
-  grid-template-rows: auto repeat(3, 15rem) auto;
-  gap: 2rem;
 
   /* Create fade anumation */
   opacity: 0;
   transition: all 1s;
 }
 
-.balance {
-  grid-column: 1 / span 2;
+.cards {
+  width: 100%;
+  height: 164px;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 9%;
+}
+.card {
+  width: 327px;
+  height: 164px;
+  border-radius: 20px;
+  background-color: var(--btn_color);
+  color: var(--white);
+  position: relative;
+}
+.card_img {
+  padding-left: 16px;
+}
+.card_first_last_name {
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: 0.1em;
+  padding-left: 25px;
+  margin-top: 25px;
+}
+.card_number {
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+}
+.card_number p {
+  font-size: 13px;
+  padding-left: 10px;
+}
+.card_number img {
+  width: 24px;
+  height: 24px;
+}
+.card_bg_img {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.navigation_app {
+  width: 100%;
+  height: 79px;
+  position: absolute;
+  top: 26%;
+  display: flex;
+  justify-content: space-around;
+}
+.navigation_btn_send,
+.navigation_btn_receive,
+.navigation_btn_topup,
+.navigation_btn_payment {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  background-color: var(--bg_second_color);
+  border: none;
+}
+
+.balance {
   margin-bottom: 2rem;
 }
 
@@ -118,9 +213,12 @@ nav {
 
 /* Transactions */
 .transactions {
-  grid-row: 2 / span 3;
-  background-color: #fff;
+  width: 100%;
+  max-height: 68%;
+  background-color: var(--bg_color);
   border-radius: 1rem;
+  position: absolute;
+  top: 32%;
   overflow: scroll;
 }
 
@@ -128,7 +226,6 @@ nav {
   padding: 2.25rem 4rem;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #eee;
 }
 
 .transactions_type {
@@ -148,14 +245,6 @@ nav {
   color: rgb(86, 86, 86);
 }
 
-.transactions_type_deposit {
-  background-image: linear-gradient(to top left, #399bb3, #72d6e4);
-}
-
-.transactions_type_withdrawal {
-  background-image: linear-gradient(to top left, #f07b0d, #ca7e1a);
-}
-
 .transactions_value {
   font-size: 1.8rem;
   margin-left: auto;
@@ -163,9 +252,6 @@ nav {
 
 /* Total */
 .total {
-  grid-row: 5 / 6;
-  display: flex;
-  align-items: baseline;
   padding: 0 0.3rem;
   margin-top: 1rem;
 }
@@ -202,13 +288,15 @@ nav {
 
 /* Operations */
 .operation {
+  width: 100%;
+  position: absolute;
+  top: 30%;
   border-radius: 1rem;
   padding: 3rem 4rem;
-  color: #333;
+  color: var(--white);
 }
 
 .operation_transfer {
-  background-image: linear-gradient(to top left, #547202, #b7d433);
 }
 
 .operation_loan {
@@ -223,19 +311,14 @@ h2 {
   margin-bottom: 1.5rem;
   font-size: 1.7rem;
   font-weight: 600;
-  color: #333;
+  color: var(--white);
 }
 
 .form {
-  display: grid;
-  grid-template-columns: 2.5fr 2.5fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 0.4rem 1rem;
+  margin-top: 10px;
 }
-
 /* Exceptions for interest */
 .form.form_loan {
-  grid-template-columns: 2.5fr 1fr 2.5fr;
 }
 .form_label_loan {
   grid-row: 2;
@@ -244,12 +327,14 @@ h2 {
 
 .form_input {
   width: 100%;
+  height: 40px;
+  margin-top: 10px;
   border: none;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: var(--bg_second_color);
   font-family: inherit;
   font-size: 1.6rem;
   text-align: center;
-  color: #333;
+  color: var(--white);
   padding: 0.3rem 1rem;
   border-radius: 0.7rem;
   transition: all 0.3s;
@@ -266,10 +351,14 @@ h2 {
 }
 
 .form_btn {
+  width: 327px;
+  height: 48px;
+  margin-top: 15px;
   border: none;
-  border-radius: 0.7rem;
+  border-radius: 20px;
   font-size: 1.8rem;
-  background-color: #fff;
+  background-color: var(--btn_color);
+  color: var(--white);
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -281,9 +370,8 @@ h2 {
 
 .logout_timer {
   padding: 0 0.3rem;
-  margin-top: 1.9rem;
   text-align: right;
-  font-size: 1.25rem;
+  position: absolute;
 }
 
 .timer {
