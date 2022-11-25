@@ -53,7 +53,8 @@ const containerNav = document.querySelector('.nav');
 const containerApp = document.querySelector('.app');
 const containerTransactions = document.querySelector('.transactions');
 const containerSendOperation = document.querySelector('.operation_transfer');
-// const containerSendOperation = document.querySelector('.')
+const containerLoanOperation = document.querySelector('.operation_loan');
+const containerClouseAccountOperation = document.querySelector('.operation_close');
 
 const btnLogin = document.querySelector('.login_btn');
 const btnTransfer = document.querySelector('.form_btn_transfer');
@@ -64,13 +65,19 @@ const btnSend = document.querySelector('.navigation_btn_send');
 const btnReceive = document.querySelector('.navigation_btn_receive');
 const btnTopUp = document.querySelector('.navigation_btn_topup');
 const btnPayment = document.querySelector('.navigation_btn_payment');
+const btnSetting = document.querySelector('.setting_wrapper');
+
+const btnCardNumber = document.querySelector('.card_number_img_wrapper');
+const cardNumber = document.querySelector('.card_number_item');
+const imgCardN1 = document.querySelector('.card_number_img1');
+const imgCardN2 = document.querySelector('.card_number_img2');
 
 const inputLoginUsername = document.querySelector('.login_input_user');
 const inputLoginPin = document.querySelector('.login_input_pin');
 const inputTransferTo = document.querySelector('.form_input_to');
 const inputTransferAmount = document.querySelector('.form_input_amount');
 const inputLoanAmount = document.querySelector('.form_input_loan_amount');
-const inputCloseUsername = document.querySelector('.form_input_user');
+const inputCloseNickname = document.querySelector('.form_input_user');
 const inputClosePin = document.querySelector('.form_input_pin');
 
 const transactionRowWithdrawal = document.querySelector('.transactions_row');
@@ -140,6 +147,52 @@ const updateUi = function () {
 
 let currentAccount
 
+
+
+
+const addClassTransactionContainer = function () {
+    if (containerTransactions.className == "transactions") {
+        containerTransactions.classList.add('display_none');
+    } else if (containerTransactions.className == "transactions display_none") {
+        containerTransactions.classList.remove('display_none');
+    }
+
+}
+const addClassContainerSendOperation = function () {
+    containerSendOperation.classList.toggle('display_none');
+    containerSendOperation.classList.toggle('display_flex_column');
+    containerLoanOperation.classList.remove('display_flex_column');
+    containerLoanOperation.classList.add('display_none');
+    containerClouseAccountOperation.classList.add('display_none');
+    containerClouseAccountOperation.classList.remove('display_flex_column');
+    if (containerSendOperation.className == "operation operation_transfer display_flex_column" && containerTransactions.className == "transactions") {
+        containerTransactions.classList.add('display_none');
+    }
+}
+const addClassContainerLoanOperation = function () {
+    containerSendOperation.classList.add('display_none');
+    containerSendOperation.classList.remove('display_flex_column');
+    containerLoanOperation.classList.toggle('display_none');
+    containerLoanOperation.classList.toggle('display_flex_column');
+    containerClouseAccountOperation.classList.add('display_none');
+    containerClouseAccountOperation.classList.remove('display_flex_column');
+    if (containerTransactions.className == "transactions" && containerLoanOperation.className == "operation operation_loan display_flex_column") {
+        containerTransactions.classList.add('display_none');
+    }
+}
+const addContainerClouseAccountOperation = function () {
+    containerClouseAccountOperation.classList.toggle('display_none');
+    containerClouseAccountOperation.classList.toggle('display_flex_column');
+    containerSendOperation.classList.add('display_none');
+    containerSendOperation.classList.remove('display_flex_column');
+    containerLoanOperation.classList.remove('display_flex_column');
+    containerLoanOperation.classList.add('display_none');
+    if (containerTransactions.className == "transactions" && containerClouseAccountOperation.className == "operation operation_close display_flex_column") {
+        containerTransactions.classList.add('display_none');
+    }
+};
+// Event Handlers 
+
 btnLogin.addEventListener('click', function (e) {
     e.preventDefault();
     currentAccount = accounts.find(account => account.nicname === inputLoginUsername.value);
@@ -161,6 +214,18 @@ btnLogin.addEventListener('click', function (e) {
     }
 });
 
+btnCardNumber.addEventListener('click', function () {
+    imgCardN1.classList.toggle('display_none');
+    imgCardN2.classList.toggle('display_none');
+
+    if (imgCardN2.className == "card_number_img2") {
+        cardNumber.innerHTML = '**** **** **** ****';
+    } else if (imgCardN2.className == "card_number_img2 display_none") {
+        cardNumber.innerHTML = '3990 3444 7778 2999';
+    }
+});
+
+
 btnTransfer.addEventListener('click', function (e) {
     e.preventDefault();
     const transferAmount = Number(inputTransferAmount.value);
@@ -177,28 +242,30 @@ btnTransfer.addEventListener('click', function (e) {
     }
 });
 
-
-const addClassTransactionContainer = function () {
-    if (containerTransactions.className == "transactions") {
-        console.log(containerTransactions.className);
-        containerTransactions.classList.add('display_none');
-        console.log("clic1");
-    } else if (containerTransactions.className == "transactions display_none") {
-        containerTransactions.classList.remove('display_none');
-        console.log("click 2");
-    }
-
-    console.log(containerTransactions.className);
-}
-
 btnSend.addEventListener('click', function () {
-    // containerTransactions.classList.add('display_none');
     addClassTransactionContainer()
-    // containerSendOperation.classList.toggle('display_none');
-    // containerSendOperation.classList.toggle('display_flex_column')
+    addClassContainerSendOperation()
 })
 
 btnReceive.addEventListener('click', function () {
     addClassTransactionContainer()
-    // containerSendOperation.classList.add('display_none');
+    addClassContainerLoanOperation()
+});
+btnSetting.addEventListener('click', function () {
+    addClassTransactionContainer();
+    addContainerClouseAccountOperation();
+
+});
+btnClose.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (inputCloseNickname.value === currentAccount.nicname && Number(inputClosePin.value) === currentAccount.pin) {
+        const currentAccountIndex = accounts.findIndex(account => account.nicname === currentAccount.nicname);
+        accounts.splice(currentAccountIndex, 1);
+        console.log(currentAccountIndex);
+        containerApp.classList.add('display_none');
+        containerNav.classList.remove('display_none');
+    }
+    inputCloseNickname.value = '';
+    inputClosePin.value = '';
+    labelWelcome.textContent = `Увійдіть у свій акаунт`;
 })

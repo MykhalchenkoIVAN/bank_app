@@ -40,24 +40,27 @@
 
       <main class="app">
         <!-- Balance -->
-        <div class="balance display_none">
-          <div>
-            <p class="balance_label">Поточний баланс</p>
-            <p class="balance_date">З <span class="date">21/11/2022</span></p>
-          </div>
-          <p class="balance_value">0000$</p>
-        </div>
 
         <div class="cards">
           <div class="card">
             <img src="img/visa.png" alt="visa" class="card_img" />
             <div class="card_first_last_name"></div>
             <div class="card_number">
-              <img src="img/eye_1.png" alt="" />
-              <p>3990 3444 7778 2999</p>
+              <div class="card_number_img_wrapper">
+                <img src="img/eye_1.png" alt="" class="card_number_img1" />
+                <img
+                  src="img/eye_2.png"
+                  alt=""
+                  class="card_number_img2 display_none"
+                />
+              </div>
+              <p class="card_number_item">3990 3444 7778 2999</p>
             </div>
             <div class="card_bg_img">
               <img src="img/bg_card.png" alt="bg" />
+            </div>
+            <div class="balance">
+              <p class="balance_value">0000$</p>
             </div>
           </div>
         </div>
@@ -75,6 +78,10 @@
           <button class="navigation_btn_payment">
             <img src="img/payment_img.png" alt="payment" />
           </button>
+        </div>
+        <!-- Setеing-->
+        <div class="setting_wrapper">
+          <img src="img/setings_icon.png" alt="" />
         </div>
         <!-- Transactions -->
         <div class="transactions">
@@ -127,9 +134,12 @@
         <div class="operation operation_loan display_none">
           <h2>Запросити позику</h2>
           <form class="form form_loan">
-            <input type="number" class="form_input form_input_loan_amount" />
+            <input
+              type="number"
+              class="form_input form_input_loan_amount"
+              placeholder="Сума"
+            />
             <button class="form_btn form_btn_loan">&rarr;</button>
-            <label class="form_label form_label_loan">Сума</label>
           </form>
         </div>
 
@@ -137,15 +147,18 @@
         <div class="operation operation_close display_none">
           <h2>Закрити рахунок</h2>
           <form class="form form_close">
-            <input type="text" class="form_input form_input_user" />
+            <input
+              type="text"
+              class="form_input form_input_user"
+              placeholder="Підтвердити ім'я"
+            />
             <input
               type="password"
               maxlength="6"
               class="form_input form_input_pin"
+              placeholder="Підтвердити PIN"
             />
             <button class="form_btn form_btn_close">&rarr;</button>
-            <label class="form_label">Підтвердити ім'я</label>
-            <label class="form_label">Підтвердити PIN</label>
           </form>
         </div>
 

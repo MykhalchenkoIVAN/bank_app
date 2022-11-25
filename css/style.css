@@ -49,6 +49,7 @@ body {
   padding: 0 2rem;
   position: absolute;
   z-index: 1;
+  opacity: 100;
 }
 
 .welcome {
@@ -121,14 +122,13 @@ body {
   height: 100%;
   position: relative;
 
-  /* Create fade anumation */
+  /* Create fade animation */
   opacity: 0;
   transition: all 1s;
 }
 
 .cards {
   width: 100%;
-  height: 164px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -137,7 +137,7 @@ body {
 }
 .card {
   width: 327px;
-  height: 164px;
+  height: 190px;
   border-radius: 20px;
   background-color: var(--btn_color);
   color: var(--white);
@@ -151,7 +151,7 @@ body {
   line-height: 24px;
   letter-spacing: 0.1em;
   padding-left: 25px;
-  margin-top: 25px;
+  margin-top: 50px;
 }
 .card_number {
   display: flex;
@@ -171,12 +171,21 @@ body {
   right: 0;
   top: 0;
 }
+.card_number_img_wrapper {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+.card_number_img1,
+.card_number_img2 {
+  position: absolute;
+}
 
 .navigation_app {
   width: 100%;
   height: 79px;
   position: absolute;
-  top: 26%;
+  top: 28%;
   display: flex;
   justify-content: space-around;
 }
@@ -190,25 +199,25 @@ body {
   background-color: var(--bg_second_color);
   border: none;
 }
-
 .balance {
-  margin-bottom: 2rem;
+  position: absolute;
+  right: 16px;
+  top: 19px;
 }
-
-.balance_label {
-  font-size: 2.2rem;
-  font-weight: 500;
-  margin-bottom: -0.2rem;
-}
-
-.balance_date {
-  font-size: 1.4rem;
-  color: rgb(110, 110, 110);
-}
-
 .balance_value {
-  font-size: 4.5rem;
+  font-size: 3.5rem;
   font-weight: 400;
+}
+/* Setting start */
+.setting_wrapper {
+  position: absolute;
+  top: 2%;
+  right: 6%;
+  width: 32px;
+  height: 32px;
+}
+.setting_wrapper img {
+  width: 100%;
 }
 
 /* Transactions */
@@ -218,7 +227,7 @@ body {
   background-color: var(--bg_color);
   border-radius: 1rem;
   position: absolute;
-  top: 32%;
+  top: 35%;
   overflow: scroll;
 }
 
@@ -290,7 +299,7 @@ body {
 .operation {
   width: 100%;
   position: absolute;
-  top: 30%;
+  top: 33%;
   border-radius: 1rem;
   padding: 3rem 4rem;
   color: var(--white);
@@ -300,11 +309,9 @@ body {
 }
 
 .operation_loan {
-  background-image: linear-gradient(to top left, #068394, #40dad2);
 }
 
 .operation_close {
-  background-image: linear-gradient(to top left, #e93c07, #d36c71);
 }
 
 h2 {
@@ -371,7 +378,6 @@ h2 {
 .logout_timer {
   padding: 0 0.3rem;
   text-align: right;
-  position: absolute;
 }
 
 .timer {
