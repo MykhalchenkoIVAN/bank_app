@@ -18,9 +18,12 @@
   </head>
   <body>
     <div class="body_wrapper">
+      <div class="preloader" id="preloader">
+        <div class="shapes-1"></div>
+      </div>
       <!-- Login  -->
-      <nav class="nav">
-        <p class="welcome">Увійдіть у свій акаунт</p>
+      <nav class="nav display_none">
+        <p class="welcome">Увійдіть в свій акаунт</p>
         <form class="login">
           <input
             type="text"
@@ -34,9 +37,36 @@
             maxlength="4"
             class="login_input login_input_pin"
           />
-          <button class="login_btn">&rarr;</button>
+          <button class="login_btn">Увійти</button>
         </form>
+        <button class="registration_btn login_btn">Зареєструватися</button>
       </nav>
+      <!--Registration page-->
+      <div class="registration_wrapper display_none">
+        <input
+          type="text"
+          placeholder="Імя"
+          class="login_input reg_input_name"
+        />
+        <input
+          type="text"
+          placeholder="Прізвище"
+          class="login_input reg_input_first_name"
+        />
+        <input
+          type="text"
+          placeholder="Nickname"
+          class="login_input reg_input_nickname"
+        />
+        <input
+          type="password"
+          placeholder="PIN-code"
+          class="login_input reg_input_pin"
+        />
+        <button class="aprove_registration_btn login_btn">
+          Підтвердити реєстрацію
+        </button>
+      </div>
 
       <main class="app">
         <!-- Balance -->
@@ -64,7 +94,7 @@
             </div>
           </div>
         </div>
-
+        <!--Navigation app-->
         <div class="navigation_app">
           <button class="navigation_btn_send">
             <img src="img/send_img.png" alt="send" />
@@ -79,27 +109,18 @@
             <img src="img/payment_img.png" alt="payment" />
           </button>
         </div>
+        <!--Sorted transaction-->
+        <div class="container_transactions_header">&darr;</div>
+        <!-- Exit app-->
+        <div class="container_exit_btn">
+          <img src="img/exit_icon.png" alt="exit" />
+        </div>
         <!-- Setеing-->
         <div class="setting_wrapper">
           <img src="img/setings_icon.png" alt="" />
         </div>
         <!-- Transactions -->
-        <div class="transactions">
-          <div class="transactions_row">
-            <div class="transactions_type transactions_type_deposit">
-              2 депозит
-            </div>
-            <div class="transactions_date">2 дня назад</div>
-            <div class="transactions_value">5 000$</div>
-          </div>
-          <div class="transactions_row">
-            <div class="transactions_type transactions_type_withdrawal">
-              1 виведення коштів
-            </div>
-            <div class="transactions_date">21/01/2022</div>
-            <div class="transactions_value">-256S</div>
-          </div>
-        </div>
+        <div class="transactions"></div>
 
         <!-- Total -->
         <div class="total display_none">
@@ -109,7 +130,6 @@
           <p class="total_value total_value_out">0000$</p>
           <p class="total_label">Проценти</p>
           <p class="total_value total_value_interest">0000$</p>
-          <button class="btn_sort">&downarrow; СОРТУВАТИ</button>
         </div>
 
         <!-- Operation - Transfers -->

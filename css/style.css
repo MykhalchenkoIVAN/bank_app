@@ -29,14 +29,13 @@ html {
 body {
   font-family: "Roboto", sans-serif;
   color: var(--white);
-  height: 100vh;
-  padding: 2rem;
   margin: 0 auto;
-  max-width: 420px;
+  height: 100vh;
 }
 .body_wrapper {
   width: 100%;
   height: 100%;
+  /* min-height: 920px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,12 +43,41 @@ body {
   position: relative;
 }
 
+/* Preloader start  */
+.preloader {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shapes-1 {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #1b434d;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  animation: sh1 2s infinite cubic-bezier(0.3, 1, 0, 1);
+}
+@keyframes sh1 {
+  33% {
+    border-radius: 0;
+    background: var(--bg_second_color);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  66% {
+    border-radius: 0;
+    background: var(--btn_color);
+    clip-path: polygon(50% 0, 50% 0, 100% 100%, 0 100%);
+  }
+}
+/* Preloader end */
+
 .nav {
   align-items: center;
-  padding: 0 2rem;
   position: absolute;
   z-index: 1;
   opacity: 100;
+  height: 400px;
 }
 
 .welcome {
@@ -66,7 +94,7 @@ body {
 }
 
 .login {
-  height: 200px;
+  height: 158px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -115,11 +143,31 @@ body {
   outline: none;
   color: rgb(105, 105, 105);
 }
+/* Registration */
+.registration_wrapper {
+  width: 100%;
+  height: 250px;
+  position: absolute;
+  z-index: 1;
+}
+.aprove_registration_btn {
+}
+/* Exit */
+.container_exit_btn {
+  position: absolute;
+  top: 2%;
+  left: 6%;
+  width: 32px;
+  height: 32px;
+}
+.container_exit_btn img {
+  width: 100%;
+}
 
 /* Main */
 .app {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   position: relative;
 
   /* Create fade animation */
@@ -133,7 +181,7 @@ body {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 9%;
+  top: 72px;
 }
 .card {
   width: 327px;
@@ -185,7 +233,7 @@ body {
   width: 100%;
   height: 79px;
   position: absolute;
-  top: 28%;
+  top: 280px;
   display: flex;
   justify-content: space-around;
 }
@@ -224,11 +272,20 @@ body {
 .transactions {
   width: 100%;
   max-height: 68%;
+  min-height: 500px;
   background-color: var(--bg_color);
   border-radius: 1rem;
   position: absolute;
-  top: 35%;
+  top: 370px;
   overflow: scroll;
+}
+.container_transactions_header {
+  font-size: 24px;
+  position: absolute;
+  top: 340px;
+  right: 42px;
+  text-align: end;
+  z-index: 2;
 }
 
 .transactions_row {
@@ -236,8 +293,13 @@ body {
   display: flex;
   align-items: center;
 }
+.transactions_row:first-child {
+  margin-top: 10px;
+}
 
 .transactions_type {
+  display: flex;
+  align-items: center;
   font-size: 1.1rem;
   text-transform: uppercase;
   font-weight: 500;
@@ -246,8 +308,16 @@ body {
   border-radius: 10rem;
   margin-right: 2rem;
 }
-
-.transactions_date {
+.transaction_icon {
+  width: 24px;
+  height: 24px;
+  background-color: var(--bg_second_color);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.transaction_icon .transactions_date {
   font-size: 1.1rem;
   text-transform: uppercase;
   font-weight: 500;
@@ -299,7 +369,7 @@ body {
 .operation {
   width: 100%;
   position: absolute;
-  top: 33%;
+  top: 330px;
   border-radius: 1rem;
   padding: 3rem 4rem;
   color: var(--white);
@@ -382,4 +452,15 @@ h2 {
 
 .timer {
   font-weight: 600;
+}
+
+@media (max-height: 920px) {
+  .app {
+    overflow: scroll;
+  }
+}
+@media (min-width: 420px) {
+  body {
+    width: 420px;
+  }
 }
