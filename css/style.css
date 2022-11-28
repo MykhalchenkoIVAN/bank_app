@@ -71,7 +71,9 @@ body {
   }
 }
 /* Preloader end */
-
+div{
+  /* background: #191c44; */
+}
 .nav {
   align-items: center;
   position: absolute;
@@ -289,7 +291,7 @@ body {
 }
 
 .transactions_row {
-  padding: 2.25rem 4rem;
+  padding: 1.25rem 4rem;
   display: flex;
   align-items: center;
 }
@@ -309,8 +311,8 @@ body {
   margin-right: 2rem;
 }
 .transaction_icon {
-  width: 24px;
-  height: 24px;
+  width: 38px;
+  height: 38px;
   background-color: var(--bg_second_color);
   border-radius: 5px;
   display: flex;
@@ -464,3 +466,4 @@ h2 {
     width: 420px;
   }
 }
+s
