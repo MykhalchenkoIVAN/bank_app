@@ -25,11 +25,10 @@
             type="text"
             placeholder="Nickname"
             class="login_input login_input_user"
-          /><!-- В реальних додатках використовують type="password" -->
+          />
           <input
-            type="text"
+            type="password"
             placeholder="PIN"
-            maxlength="4"
             class="login_input login_input_pin"
           />
           <button class="login_btn">Увійти</button>
@@ -61,6 +60,7 @@
         <button class="aprove_registration_btn login_btn">
           Підтвердити реєстрацію
         </button>
+        <button class="back_btn login_btn">Назад</button>
       </div>
       <main class="app">
         <!-- Balance -->
@@ -82,7 +82,7 @@
             <div class="card_bg_img">
               <img src="img/bg_card.png" alt="bg" />
             </div>
-            <div class="balance"><p class="balance_value">0000$</p></div>
+            <div class="balance"><p class="balance_value"></p></div>
           </div>
         </div>
         <!--Navigation app-->
@@ -169,9 +169,12 @@
           </form>
         </div>
         <!-- Logout timer -->
-        <p class="logout_timer">
-          Вихід із застосунку через<span class="timer"> 05:00</span>
-        </p>
+        <div class="time_wrapper">
+          <div class="current_date"></div>
+          <p class="logout_timer">
+            Вихід із застосунку через<span class="timer"> 05:00</span>
+          </p>
+        </div>
       </main>
     </div>
     <script src="script.js"></script>
